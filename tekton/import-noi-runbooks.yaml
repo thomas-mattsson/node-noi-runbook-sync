@@ -1,0 +1,45 @@
+apiVersion: tekton.dev/v1beta1
+kind: Task
+metadata:
+  name: export-noi-runbooks
+spec:
+  params:
+    - default: '--splithtml'
+      name: params
+      type: string
+    - description: the path in the workspace where the runbooks should be exported
+      name: runbookspath
+      type: string
+    - description: >-
+        secret containing the host (NOI_HOST key) and the api key user and
+        password (NOI_API_KEY_USER and NOI_API_KEY_PW)
+      name: noi-secret
+      type: string
+  steps:
+    - command:
+        - node
+        - dist/app.js
+        - export
+        - $(workspaces.runbooks.path)/$(inputs.params.runbookspath)
+        - $(inputs.params.params)
+      env:
+        - name: NOI_HOST
+          valueFrom:
+            secretKeyRef:
+              key: NOI_HOST
+              name: $(params.noi-secret)
+        - name: NOI_API_KEY_USER
+          valueFrom:
+            secretKeyRef:
+              key: NOI_API_KEY_USER
+              name: $(params.noi-secret)
+        - name: NOI_API_KEY_PW
+          valueFrom:
+            secretKeyRef:
+              key: NOI_API_KEY_PW
+              name: $(params.noi-secret)
+      image: docker.io/tma75/node-noi-runbook-sync
+      name: export
+      resources: {}
+  workspaces:
+    - name: runbooks

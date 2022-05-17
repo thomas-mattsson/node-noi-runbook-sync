@@ -1,0 +1,14 @@
+*
+!.gitignore
+!/src/
+!/src/*
+!/tekton/
+!/tekton/*
+!/argocd/
+!/argocd/*
+!package.json
+!package-lock.json
+!Dockerfile
+!.eslintrc.json
+!tsconfig.json
+!README.md

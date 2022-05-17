@@ -1,0 +1,17 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: noi-runbooks-tekton-tasks
+  namespace: argocd
+spec:
+  project: default
+  source:
+    path: tekton
+    repoURL: https://github.com/thomas-mattsson/node-noi-runbook-sync.git
+    targetRevision: main
+  destination:
+    namespace: noi
+    server: https://kubernetes.default.svc
+  syncPolicy:
+    automated:
+      prune: true
