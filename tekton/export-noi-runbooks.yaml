@@ -41,7 +41,7 @@ spec:
               key: NOI_API_KEY_PW
               name: $(params.noi-secret)
       image: docker.io/tma75/node-noi-runbook-sync
-      name: export
+      name: import
       resources: {}
   workspaces:
     - name: runbooks
