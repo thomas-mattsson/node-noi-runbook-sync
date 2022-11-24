@@ -40,7 +40,8 @@ spec:
             secretKeyRef:
               key: NOI_API_KEY_PW
               name: $(params.noi-secret)
-      image: docker.io/tma75/node-noi-runbook-sync
+      #image: docker.io/tma75/node-noi-runbook-sync
+      image: de.icr.io/tma75/node-noi-runbook-sync
       name: import
       resources: {}
   workspaces:
