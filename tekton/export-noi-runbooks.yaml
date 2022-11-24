@@ -1,12 +1,10 @@
 apiVersion: tekton.dev/v1beta1
 kind: Task
 metadata:
-  name: import-noi-runbooks
+  name: export-noi-runbooks
 spec:
   params:
-    - description: >-
-        parameters to import command. Add `--publish` to publish the imports,
-        otherwise they will be added as draft.
+    - default: '--splithtml'
       name: params
       type: string
     - description: the path in the workspace where the runbooks should be exported
@@ -21,7 +19,7 @@ spec:
     - command:
         - node
         - dist/app.js
-        - import
+        - export
         - $(workspaces.runbooks.path)/$(inputs.params.runbookspath)
         - $(inputs.params.params)
       env:
@@ -42,7 +40,7 @@ spec:
               name: $(params.noi-secret)
       #image: docker.io/tma75/node-noi-runbook-sync
       image: de.icr.io/tma75/node-noi-runbook-sync
-      name: import
+      name: export
       resources: {}
   workspaces:
     - name: runbooks
