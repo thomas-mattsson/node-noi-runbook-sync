@@ -25,6 +25,8 @@ spec:
         - $(workspaces.runbooks.path)/$(inputs.params.runbookspath)
         - $(inputs.params.params)
       env:
+        - name: NODE_TLS_REJECT_UNAUTHORIZED
+          value: '0'
         - name: NOI_HOST
           valueFrom:
             secretKeyRef:
